@@ -14,14 +14,13 @@ COMMIT_COUNT=`wc -l ${REV_LIST_FILE} | awk '{ print $1 }'`
 
 echo "There are ${COMMIT_COUNT} commits in ${BRANCH} branch"
 
-for i in $(seq 2 $COMMIT_COUNT);
+echo "addedLines deletedLines modifiedFiles" >> ${OUTPUT_FILE}
+
+for i in $(seq 1 $COMMIT_COUNT);
 do
-	INDEX_MINUS_ONE=$(expr "$i" - "1")
+	COMMIT=`head -n ${i} ${REV_LIST_FILE} | tail -1`
 
-	COMMIT=`head -n ${INDEX_MINUS_ONE} ${REV_LIST_FILE} | tail -1`
-	COMMIT_PREV=`head -n ${i} ${REV_LIST_FILE} | tail -1`
-
-	git diff --numstat ${COMMIT_PREV} ${COMMIT} > ${TMP_DIFF_FILE}
+	git show ${COMMIT} --pretty=tformat: --numstat > ${TMP_DIFF_FILE}
 
 	#echo "Computing additions..."
 	LINE="`awk '{ adds += $1 } END { print adds }' ${TMP_DIFF_FILE}`"
