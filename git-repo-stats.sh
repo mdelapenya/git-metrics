@@ -6,11 +6,13 @@ TMP_DIFF_FILE="/tmp/current_diff.txt"
 
 rm -f ${OUTPUT_FILE}
 
-git rev-list master > ${REV_LIST_FILE}
+BRANCH=$(git symbolic-ref -q HEAD)
+
+git rev-list ${BRANCH} > ${REV_LIST_FILE}
 
 COMMIT_COUNT=`wc -l ${REV_LIST_FILE} | awk '{ print $1 }'`
 
-echo "There are ${COMMIT_COUNT} commits in master branch"
+echo "There are ${COMMIT_COUNT} commits in ${BRANCH} branch"
 
 for i in $(seq 2 $COMMIT_COUNT);
 do
