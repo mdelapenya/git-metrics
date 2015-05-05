@@ -23,15 +23,19 @@ do
 	git show ${COMMIT} --pretty=tformat: --numstat > ${TMP_DIFF_FILE}
 
 	#echo "Computing additions..."
-	LINE="`awk '{ adds += $1 } END { print adds }' ${TMP_DIFF_FILE}`"
+	ADDED_LINES="`awk '{ adds += $1 } END { print adds }' ${TMP_DIFF_FILE}`"
 
 	#echo "Computing deletions..."
-	LINE="$LINE `awk '{ dels += $2 } END { print dels }' ${TMP_DIFF_FILE}`"
+	DELETED_LINES="`awk '{ dels += $2 } END { print dels }' ${TMP_DIFF_FILE}`"
 
 	#echo "Computing files..."
-	LINE="$LINE `wc -l ${TMP_DIFF_FILE} | awk '{ print $1 }'`"
+	MODIFIED_FILES="`wc -l ${TMP_DIFF_FILE} | awk '{ print $1 }'`"
 
-	echo $LINE >> ${OUTPUT_FILE}
+	if [ "${MODIFIED_FILES}" == "0" ]; then
+		echo "Avoiding commit[${i}] with SHA ${COMMIT} as it is empty"
+	else
+		echo "${ADDED_LINES} ${DELETED_LINES} ${MODIFIED_FILES}" >> ${OUTPUT_FILE}
+	fi
 done
 
 rm -f ${REV_LIST_FILE}
