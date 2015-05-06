@@ -28,6 +28,16 @@ while [ "$1" != "" ]; do
 	shift
 done
 
+if [ "$OUTPUT_FILE" = "" ]
+then
+	usage
+fi
+
+if [ "$BRANCH" = "" ]
+then
+	usage
+fi
+
 REV_LIST_FILE="/tmp/rev_list.txt"
 TMP_DIFF_FILE="/tmp/current_diff.txt"
 
