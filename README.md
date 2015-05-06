@@ -9,3 +9,5 @@ At the end, it creates a CSV file where each line represents those metrics for e
 To execute it, copy the script to the repo you want to gather metrics for, checkout the branch you prefer, and execute the shell script:
 
 ./git-repo-stats.sh
+
+There is also a R language script to plot the statistics in R format. You can execute it using R commands, but you'll need to install ggplot2 dependency before, using *library("ggplot2")* command.

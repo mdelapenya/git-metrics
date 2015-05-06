@@ -1,6 +1,4 @@
-install.packages("ggplot2")
 
-# 
 commits <- read.csv("/tmp/commits-stats.csv", header = TRUE, sep = " ")
 
 x <- seq(1, nrow(commits), 1)
