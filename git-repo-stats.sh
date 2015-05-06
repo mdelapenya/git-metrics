@@ -1,14 +1,16 @@
 #!/bin/bash
 
 function usage() {
-	echo "Usage : $0 [--help] [--output <output file>] [--branch <git branch>]"
+	echo "Usage : $0 [--help] [--output <output file>] [--branch <git branch>] [--since <amount of time>]"
 	echo "--output: (Optional) Location for the output file. If no output file is set, then the file will be saved in temporary folder."
 	echo "--branch: (Optional) branch to gather commits metrics. If no branch is set, current branch will be used."
+	echo "--since: (Optional) Specify the amount of time since metrics will be gathered. It uses same syntax as 'git --since=' command, but w/o the 'equals' signo."
 	exit 1;
 }
 
 OUTPUT_FILE="/tmp/commits-stats.csv"
 BRANCH=$(git symbolic-ref -q HEAD)
+SINCE=""
 
 while [ "$1" != "" ]; do
 	case $1 in
@@ -20,6 +22,9 @@ while [ "$1" != "" ]; do
 				;;
 		--branch )	shift
 				BRANCH=$1
+				;;
+		--since )	shift
+				SINCE="--since=$1"
 				;;
 		*)
 			usage
@@ -38,12 +43,17 @@ then
 	usage
 fi
 
+if [ "$SINCE" = "" ]
+then
+	SINCE=""
+fi
+
 REV_LIST_FILE="/tmp/rev_list.txt"
 TMP_DIFF_FILE="/tmp/current_diff.txt"
 
 rm -f ${OUTPUT_FILE}
 
-GIT_COMMAND="git rev-list ${BRANCH}"
+GIT_COMMAND="git rev-list ${BRANCH} ${SINCE}"
 
 ${GIT_COMMAND} > ${REV_LIST_FILE}
 
