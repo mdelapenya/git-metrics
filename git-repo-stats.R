@@ -3,7 +3,7 @@ commits <- read.csv("/tmp/commits-stats.csv", header = TRUE, sep = " ")
 
 x <- seq(1, nrow(commits), 1)
 
-df <- data.frame(x, commits$addedLines, commits$deletedLines, commits$modifiedFiles)
+df <- data.frame(commits$sha, commits$addedLines, commits$deletedLines, commits$modifiedFiles)
 
 revdf <- df[rev(rownames(df)),]
 

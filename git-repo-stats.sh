@@ -61,7 +61,7 @@ COMMIT_COUNT=`wc -l ${REV_LIST_FILE} | awk '{ print $1 }'`
 
 echo "There are ${COMMIT_COUNT} commits in ${BRANCH} branch"
 
-echo "addedLines deletedLines modifiedFiles" >> ${OUTPUT_FILE}
+echo "addedLines deletedLines modifiedFiles sha" >> ${OUTPUT_FILE}
 
 for i in $(seq 1 $COMMIT_COUNT);
 do
@@ -81,7 +81,7 @@ do
 	if [ "${MODIFIED_FILES}" == "0" ]; then
 		echo "Avoiding commit[${i}] with SHA ${COMMIT} as it is a merge or is empty"
 	else
-		echo "${ADDED_LINES} ${DELETED_LINES} ${MODIFIED_FILES}" >> ${OUTPUT_FILE}
+		echo "${ADDED_LINES} ${DELETED_LINES} ${MODIFIED_FILES} ${COMMIT}" >> ${OUTPUT_FILE}
 	fi
 done
 
