@@ -8,7 +8,9 @@ rm -f ${OUTPUT_FILE}
 
 BRANCH=$(git symbolic-ref -q HEAD)
 
-git rev-list ${BRANCH} > ${REV_LIST_FILE}
+GIT_COMMAND="git rev-list ${BRANCH}"
+
+${GIT_COMMAND} > ${REV_LIST_FILE}
 
 COMMIT_COUNT=`wc -l ${REV_LIST_FILE} | awk '{ print $1 }'`
 
