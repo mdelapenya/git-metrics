@@ -17,3 +17,7 @@ There is also a R language script to plot the statistics in R format. You can ex
 ```
 > library("ggplot2")
 ```
+
+This is a sample screenshot of how those three series are plotted:
+
+![Sample Commit Statistics](/static/sample.png)
