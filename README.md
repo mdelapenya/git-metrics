@@ -21,3 +21,15 @@ There is also a R language script to plot the statistics in R format. You can ex
 This is a sample screenshot of how those three series are plotted:
 
 ![Sample Commit Statistics](/static/sample.png)
+
+After plotting it, R will display a summary of the statistics:
+
+```
+   addedLines      deletedLines   modifiedFiles  
+ Min.   : 1.000   Min.   :0.000   Min.   :1.000  
+ 1st Qu.: 3.000   1st Qu.:0.750   1st Qu.:1.000  
+ Median : 5.000   Median :1.000   Median :1.000  
+ Mean   : 8.938   Mean   :1.562   Mean   :1.125  
+ 3rd Qu.: 8.500   3rd Qu.:2.000   3rd Qu.:1.000  
+ Max.   :39.000   Max.   :6.000   Max.   :2.000 
+ ```
