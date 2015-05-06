@@ -1,12 +1,37 @@
 #!/bin/bash
 
+function usage() {
+	echo "Usage : $0 [--help] [--output <output file>] [--branch <git branch>]"
+	echo "--output: (Optional) Location for the output file. If no output file is set, then the file will be saved in temporary folder."
+	echo "--branch: (Optional) branch to gather commits metrics. If no branch is set, current branch will be used."
+	exit 1;
+}
+
 OUTPUT_FILE="/tmp/commits-stats.csv"
+BRANCH=$(git symbolic-ref -q HEAD)
+
+while [ "$1" != "" ]; do
+	case $1 in
+		--help )	shift
+				usage
+				;;
+		--output )	shift
+				OUTPUT_FILE=$1
+				;;
+		--branch )	shift
+				BRANCH=$1
+				;;
+		*)
+			usage
+			;;
+	esac
+	shift
+done
+
 REV_LIST_FILE="/tmp/rev_list.txt"
 TMP_DIFF_FILE="/tmp/current_diff.txt"
 
 rm -f ${OUTPUT_FILE}
-
-BRANCH=$(git symbolic-ref -q HEAD)
 
 GIT_COMMAND="git rev-list ${BRANCH}"
 
