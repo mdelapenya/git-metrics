@@ -32,7 +32,7 @@ do
 	MODIFIED_FILES="`wc -l ${TMP_DIFF_FILE} | awk '{ print $1 }'`"
 
 	if [ "${MODIFIED_FILES}" == "0" ]; then
-		echo "Avoiding commit[${i}] with SHA ${COMMIT} as it is empty"
+		echo "Avoiding commit[${i}] with SHA ${COMMIT} as it is a merge or is empty"
 	else
 		echo "${ADDED_LINES} ${DELETED_LINES} ${MODIFIED_FILES}" >> ${OUTPUT_FILE}
 	fi
